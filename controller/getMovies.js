@@ -18,11 +18,11 @@ const displayMovies = async (request, response) => {
 }
 
 const getImage=async(request,response)=>{
-    console.log(__dirname)
+    // console.log(__dirname)
     const directory = (__dirname).split('\\controller')[0]
     const fileName = request.params.fileName
     const filePath = path.join(directory, 'images', fileName);
-    console.log(filePath)
+    // console.log(filePath)
     fs.stat(filePath, (error, stat) => {
         if (stat) {
             response.status(201).sendFile(filePath)
