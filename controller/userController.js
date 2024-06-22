@@ -4,20 +4,25 @@ const jwt = require('jsonwebtoken')
 const JWT_TOKEN = 'vhvgxdayghujikjhgf'
 
 const userLogin = async (request, response) => {
-    const { userEmail, userPassword } = request.body
-    const validUser = await userModel.findOne({ email: userEmail })
-    console.log(validUser)
-    if (!validUser) {
-        return response.status(404).json({ message: "An account with this email id doesn't exists!" })
-    }
-    if(await bcrypt.compare(userPassword,validUser.password))
-        {
-            const AUTH_TOKEN = jwt.sign({email : validUser.email}, JWT_TOKEN)
-            console.log(validUser.firstName)
-            return response.status(201).json({token : AUTH_TOKEN, firstName : validUser.firstName, lastName : validUser.lastName})
-        }
-response.status(401).json({message:"Invalid Password!"})
+    try {
+        const { userEmail, userPassword } = request.body
+        const validUser = await userModel.findOne({ email: userEmail })
 
+        if (!validUser) {
+            return response.status(404).json({ message: "An account with this email id doesn't exists!" })
+        }
+        const isValidPassword = bcrypt.compareSync(userPassword, validUser.password)
+        console.log(validUser);
+        if (!isValidPassword) {
+            response.status(401).json({ message: "Invalid Password!" })
+        }
+        const AUTH_TOKEN = await jwt.sign({ email: validUser.email }, JWT_TOKEN);
+        // console.log(validUser);
+        return response.status(201).json({ token: AUTH_TOKEN, firstName: validUser.firstName, lastName: validUser.lastName })
+    }
+    catch (error) {
+        response.status(500).json({ message: error.message })
+    }
 }
 
 const userSignUp = async (request, response) => {
@@ -27,7 +32,7 @@ const userSignUp = async (request, response) => {
         const availableData = await userModel.find({ email: userData.email })
         // console.log(availableData)
         if (availableData.length == 0) {
-            const encryptPassword = await bcrypt.hash(userData.password,8)
+            const encryptPassword = await bcrypt.hash(userData.password, 8)
             const data = {
                 firstName: userData.firstName,
                 lastName: userData.lastName,

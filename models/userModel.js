@@ -13,11 +13,13 @@ const userLoginSchema = new mongoose.Schema(
         email: {
             type: String,
             required: true,
-            unique: true
+            unique: true,
+            pattern:"[a-zA-Z0-9]+@[a-zA-Z]+\.[a-zA-Z]{2,}"
         },
         password: {
             type: String,
-            required: true
+            required: true,
+            pattern:"(?=.*[a-z])(?=.*[A-Z]).{4,}"
         }
     }, { collection: 'user' }
 )
