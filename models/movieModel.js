@@ -4,7 +4,8 @@ const movieSchema = new mongoose.Schema(
     {
         movieId: {
             type: Number,
-            required: true
+            required: true,
+            unique:true
         },
         movieName: {
             type: String,
@@ -34,7 +35,8 @@ const movieSchema = new mongoose.Schema(
         }, 
         votes: {
             type: String,
-            required: true
+            required: true,
+            default:0
         }
     }, { collection: 'movieBooking' }
 )
