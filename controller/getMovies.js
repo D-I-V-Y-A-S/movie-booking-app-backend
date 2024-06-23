@@ -1,11 +1,12 @@
 const movieModel = require('../models/movieModel')
 const data = require('../data/data')
 const userModel=require('../models/userModel')
+const adminModel=require('../models/adminModel')
 
 const fs = require('fs')
 const path = require('path')
 const jwt = require('jsonwebtoken')
-const JWT_TOKEN = 'vhvgxdayghujikjhgf'
+const JWT_TOKEN = 'vhvgxdayghujikjhgf' 
 
 const displayMovies = async (request, response) => {
     try {
@@ -44,4 +45,4 @@ const getImage = async (request, response) => {
     })
 }
 
-module.exports = { displayMovies, getImage }
+module.exports = { displayMovies, getImage}
