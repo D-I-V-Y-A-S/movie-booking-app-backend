@@ -3,9 +3,15 @@ const app=express()
 
 const cors = require('cors')
 const corsOptions = {
+<<<<<<< HEAD
     origin: '*',
     methods: ['GET', 'POST'], 
     allowedHeaders: ['Content-Type', 'Authorization'], 
+=======
+    origin: '*', // This allows all origins, consider changing to a specific origin or list of origins in production
+    methods: ['GET', 'POST'], // Specify the methods allowed by the CORS policy
+    allowedHeaders: ['Content-Type', 'Authorization'], // Specify the headers allowed by the CORS policy
+>>>>>>> c4aa8c27df1d02ebdcc586f6d30d975676123e4c
   };
 app.use(cors(corsOptions))
 
