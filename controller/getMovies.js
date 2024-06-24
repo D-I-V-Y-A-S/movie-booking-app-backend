@@ -11,6 +11,7 @@ const JWT_TOKEN = 'vhvgxdayghujikjhgf'
 const displayMovies = async (request, response) => {
     try {
         const authHeader = request.headers['authorization'];
+        console.log(authHeader)
         const token = authHeader && authHeader.split(' ')[1];
         const loggedInUser = jwt.verify(token, JWT_TOKEN)
         const loggedInUserEmail = loggedInUser.email

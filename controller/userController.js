@@ -12,7 +12,7 @@ const userLogin = async (request, response) => {
             return response.status(404).json({ message: "An account with this email id doesn't exists!" })
         }
         const isValidPassword = bcrypt.compareSync(userPassword, validUser.password)
-        console.log(validUser);
+        // console.log(validUser);
         if (!isValidPassword) {
             response.status(401).json({ message: "Invalid Password!" })
         }
@@ -28,7 +28,7 @@ const userLogin = async (request, response) => {
 const userSignUp = async (request, response) => {
     try {
         const userData = request.body.data;
-        console.log(userData)
+        // console.log(userData)
         const availableData = await userModel.find({ email: userData.email })
         // console.log(availableData)
         if (availableData.length == 0) {

@@ -14,6 +14,9 @@ const db=mongoose.connection
 db.on('error',(errorMessage)=>console.log(errorMessage))
 db.once('open',()=>console.log('Connected to DataBase successfully'))
 
+app.get('/',(request,response)=>{
+    response.status(200).json({message:"HI from backend!"})
+})
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
