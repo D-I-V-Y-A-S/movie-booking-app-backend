@@ -15,37 +15,31 @@ const movieBooking = async (request, response) => {
         const token = authHeader && authHeader.split(' ')[1];
         const loggedInUser = jwt.verify(token, JWT_TOKEN)
         const loggedInUserEmail = loggedInUser.email
-        console.log(loggedInUserEmail)
+        // console.log(loggedInUserEmail)
 
         //cheking emails
         const authenticatedUser = await userModel.find({ email: loggedInUserEmail })
-        if (authenticatedUser.length === 1) {
-            const createdTickets = [];
-            for (const data of requestData) {
-                const bookingData = {
-                    firstName: detail.firstName,
-                    lastName: detail.lastName,
-                    location: detail.location,
-                    slot: detail.slot,
-                    gender: detail.gender,
-                    date: detail.date,
-                    seatName: data.seatName,
-                    seatType: data.seatType,
-                    movieName: data.movieName,
-                    email: loggedInUserEmail
-                }
-                console.log(bookingData)
-                const alreadyBooked = await ticketModel.find({ email: bookingData.email, slot: bookingData.slot, date: bookingData.date });
-                if(alreadyBooked.length===0){
-                    const createdTicket = await ticketModel.create(bookingData);
-                    createdTickets.push(createdTicket);
-                    return response.status(201).json({ message: 'Tickets Booked Successfully!' , tickets: createdTickets });
-                }
-                else{
-                    return response.status(409).json({ message:"Already booked ticket in the same time slot!"});
-                }
-            }
+        if (authenticatedUser.length !== 1) {
+            return response.status(404).json({ message: 'User not found or not authenticated.' });
         }
+        const createdTickets = [];
+        for (const data of requestData) {
+            const bookingData = {
+                firstName: detail.firstName,
+                lastName: detail.lastName,
+                location: detail.location,
+                slot: detail.slot,
+                gender: detail.gender,
+                date: detail.date,
+                seatName: data.seatName,
+                seatType: data.seatType,
+                movieName: data.movieName,
+                email: loggedInUserEmail
+            }
+            const createdTicket = await ticketModel.create(bookingData);
+            createdTickets.push(createdTicket);
+        }
+        response.status(201).json({ message: 'Tickets Booked Successfully!', tickets: createdTickets });
     }
     catch (error) {
         response.status(500).json({ message: error.message })
@@ -59,7 +53,7 @@ const getBookings = async (request, response) => {
         const token = authHeader && authHeader.split(' ')[1];
         const loggedInUser = jwt.verify(token, JWT_TOKEN)
         const loggedInUserEmail = loggedInUser.email
-        console.log(loggedInUserEmail)
+        // console.log(loggedInUserEmail)
         const authenticatedUser = await userModel.find({ email: loggedInUserEmail })
 
         //retrieve bookings
@@ -82,11 +76,11 @@ const getBookedseats = async (request, response) => {
     try {
         const location = request.params.location
         console.log(location)
-        const { movieName, slot ,date} = request.query
-        console.log(movieName,slot)
+        const { movieName, slot, date } = request.query
+        console.log(movieName, slot)
         // console.log(location,movieName,slot)
 
-        const seatsBooked = await ticketModel.find({ location: location, movieName: movieName, slot: slot ,date:date});
+        const seatsBooked = await ticketModel.find({ location: location, movieName: movieName, slot: slot, date: date });
         console.log(seatsBooked)
         if (seatsBooked) {
             return response.status(200).json(seatsBooked);

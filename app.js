@@ -2,7 +2,12 @@ const express=require('express')
 const app=express()
 
 const cors = require('cors')
-app.use(cors())
+const corsOptions = {
+    origin: '*',
+    methods: ['GET', 'POST'], 
+    allowedHeaders: ['Content-Type', 'Authorization'], 
+  };
+app.use(cors(corsOptions))
 
 require('dotenv').config()
 
@@ -17,6 +22,7 @@ db.once('open',()=>console.log('Connected to DataBase successfully'))
 app.get('/',(request,response)=>{
     response.status(200).json({message:"HI from backend!"})
 })
+
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 

@@ -16,7 +16,7 @@ const userLogin = async (request, response) => {
         if (!isValidPassword) {
             response.status(401).json({ message: "Invalid Password!" })
         }
-        const AUTH_TOKEN = await jwt.sign({ email: validUser.email }, JWT_TOKEN);
+        const AUTH_TOKEN =jwt.sign({ email: validUser.email }, JWT_TOKEN);
         // console.log(validUser);
         return response.status(201).json({ token: AUTH_TOKEN, firstName: validUser.firstName, lastName: validUser.lastName })
     }
