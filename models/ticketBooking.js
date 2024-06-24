@@ -35,7 +35,7 @@ const bookingSchema = new mongoose.Schema({
     consideration:{
         type:String,
         enum:['Male','Female','No consideration'],
-        required:true
+        // required:true
     },
     email:{
         type: String,

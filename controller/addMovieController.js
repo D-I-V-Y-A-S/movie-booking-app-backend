@@ -1,9 +1,9 @@
 const movieModel = require('../models/movieModel')
 
-const addMovie=async(request,response)=>{
+const addMovie = async (request, response) => {
     try {
         console.log(request.body)
-        const { movieId, movieName, releaseDate, movieGenre1, movieGenre2, imdbRating,votes } = request.body
+        const { movieId, movieName, releaseDate, movieGenre1, movieGenre2, imdbRating, votes } = request.body
         const existingmovie = await movieModel.findOne({ movieId: movieId })
         if (existingmovie) {
             return response.status(400).send({ message: 'movie already exists' })
@@ -12,14 +12,14 @@ const addMovie=async(request,response)=>{
         const movieImage = 'http://localhost:3500/api/v1/movie/image/' + filename
         const movieData =
         {
-            movieId:movieId,
-             movieName:movieName, 
-             releaseDate:releaseDate,
-              movieGenre1:movieGenre1,
-               movieGenre2:movieGenre2,
-             imdbRating:imdbRating, 
-             movieImage:movieImage, 
-             votes:votes
+            movieId: movieId,
+            movieName: movieName,
+            releaseDate: releaseDate,
+            movieGenre1: movieGenre1,
+            movieGenre2: movieGenre2,
+            imdbRating: imdbRating,
+            movieImage: movieImage,
+            votes: votes
         }
         await movieModel.create(movieData)
         // JSON.stringify(movieData)
@@ -31,4 +31,4 @@ const addMovie=async(request,response)=>{
     }
 }
 
-module.exports={addMovie}
+module.exports = { addMovie }

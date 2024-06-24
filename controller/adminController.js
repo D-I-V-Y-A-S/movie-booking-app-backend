@@ -27,7 +27,6 @@ const adminLogin=async(request,response)=>{
 
 const adminSignup=async(request,response)=>{
     try {
-        console.log("hi")
         const adminData = request.body.data;
         console.log(adminData)
         const availableData = await adminModel.find({ email: adminData.email })
@@ -55,15 +54,11 @@ const adminSignup=async(request,response)=>{
 
 const displayMoviesAdmin= async (request, response) => {
     try {
-        // console.log("HEY")
         const authHeader = request.headers['authorization'];
         // console.log(authHeader)
-        const tokenAdmin = authHeader && authHeader.split(' ')[1];
-        // console.log(tokenAdmin)
+        const tokenAdmin = authHeader && authHeader.split(' ')[1]
         const loggedInAdmin = jwt.verify(tokenAdmin,JWT_TOKEN)
-        // console.log(loggedInAdmin)
         const loggedInAdminEmail = loggedInAdmin.email
-        // console.log(loggedInAdminEmail)
         const authenticatedUser = await adminModel.find({ email: loggedInAdminEmail })
         if (authenticatedUser) {
             const movies = await movieModel.find().sort({ movieId: 1 })
@@ -96,6 +91,5 @@ const tokenVerification=async(request,response)=>{
     catch (error) {
         response.status(500).json({ message: error.message })
     }
-
 }
 module.exports={adminLogin,adminSignup,displayMoviesAdmin,tokenVerification}

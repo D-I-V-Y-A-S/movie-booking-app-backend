@@ -1,10 +1,9 @@
 const movieModel = require('../models/movieModel')
 const userModel=require('../models/userModel')
 const jwt = require('jsonwebtoken')
-const JWT_TOKEN = 'vhvgxdayghujikjhgf' 
-const Admin_JWT_TOKEN = 'vhvgxdayghujikhjhgfh'
+const JWT_TOKEN = 'vhvgxdayghujikhjhgfh'
 
-const getMoviesOnSearch = async (request, response) => {
+const getMoviesOnSearchAdmin=async(request,response)=>{
     try {
         //checking authentication of token
         const authHeader = request.headers['authorization'];
@@ -25,9 +24,8 @@ const getMoviesOnSearch = async (request, response) => {
     }
     catch (error) {
         response.status(500).json({ message: error.message })
-    }
+    } 
 }
 
+module.exports={getMoviesOnSearchAdmin}
 
-
-module.exports = { getMoviesOnSearch }
