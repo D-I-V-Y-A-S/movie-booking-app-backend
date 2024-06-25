@@ -31,7 +31,7 @@ const displayMovies = async (request, response) => {
 const getImage = async (request, response) => {
     console.log(__dirname);
     // console.log()
-    const directory = (__dirname).split('/controller')[0]
+    const directory = __dirname.split('/controller')[0]
     const fileName = request.params.fileName
     const filePath = path.join(directory, 'images', fileName);
     console.log(filePath)
@@ -41,7 +41,7 @@ const getImage = async (request, response) => {
             return response.status(201).sendFile(filePath)
         }
         else {
-            return response.status(409).send(`Wrong path ${__dirname.split('/controller')[0]} ${path.join(__dirname.split('/controller')[0],'images',fileName)}`);
+            return response.status(409).send(`Wrong path  ${path.join(__dirname.split('/controller')[0],'images',fileName)}`);
         }
     })
 }
