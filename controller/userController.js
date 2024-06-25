@@ -51,6 +51,57 @@ const userSignUp = async (request, response) => {
     }
 }
 
+// const jwt = require('jsonwebtoken')
+
+// const maxAge = 3 * 24 * 60 * 60
+
+// const createToken = (email,password) => {
+//     return jwt.sign({ email,password}, JWT_TOKEN, {
+//         expiresIn: maxAge
+//     })
+// }
+
+
+// const userSignUp = async (req, res) => {
+//     const newUser = req.body.data
+//     try {
+//         const existingUser = await userModel.findOne({ email: newUser.email})
+//         if (existingUser) {
+//             res.status(401).json({ message: "user Already exists" })
+//         }
+
+//         const user = await userModel.create(newUser)
+//         console.log(user)
+
+//         const token = createToken(user.email, user.password)
+//         res.cookie('jwt', token)
+//         res.status(201).json({firstName: user.firstName, lastName: user.lastName})
+//     }
+//     catch (err) {
+//         console.log(err)
+//         res.status(400).json({ message: "user not created" })
+//     }
+// }
+
+// const userLogin  = async (req, res) => {
+//     const { userEmail, userPassword } = req.body
+//     console.log(userEmail,userPassword)
+//     try {
+
+//         const user = await userModel.find({email:userEmail})
+//         console.log(user)
+//         if(user){
+//         const token = createToken(userEmail,userPassword)
+//        return res.cookie('jwt', token)
+
+//       return  res.status(200).json({firstName:user.firstName, lastName: user.lastName})
+//         }
+//     }
+//     catch (err) {
+//         res.status(400).json({ message: "username or password does not exist" })
+//     }
+// }
+
 module.exports = { userLogin, userSignUp }
 
 //npm install bcryptjs
