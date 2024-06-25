@@ -35,11 +35,6 @@ const getImage = async (request, response) => {
     const fileName = request.params.fileName
     const filePath = path.join(directory, 'images', fileName);
     console.log(filePath)
-    response.status(201).sendFile(filePath);
-    response.status(200).json({
-        message:"Hello",
-        path:filePath,
-    })
     fs.stat(filePath, (error, stat) => {
         if (stat) {
             return response.status(201).sendFile(filePath)
