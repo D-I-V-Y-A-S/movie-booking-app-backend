@@ -11,11 +11,9 @@ const JWT_TOKEN = 'vhvgxdayghujikjhgf'
 const displayMovies = async (request, response) => {
     try {
         const authHeader = request.headers['authorization'];
-        console.log(authHeader)
         const token = authHeader && authHeader.split(' ')[1];
         const loggedInUser = jwt.verify(token, JWT_TOKEN)
         const loggedInUserEmail = loggedInUser.email
-        console.log(loggedInUserEmail)
         const authenticatedUser = await userModel.find({ email: loggedInUserEmail })
         if (authenticatedUser) {
             const movies = await movieModel.find().sort({ releaseDate: -1 })
@@ -31,7 +29,8 @@ const displayMovies = async (request, response) => {
 }
 
 const getImage = async (request, response) => {
-    console.log(__dirname)
+    console.log(__dirname);
+    // console.log()
     const directory = (__dirname).split('\\controller')[0]
     const fileName = request.params.fileName
     const filePath = path.join(directory, 'images', fileName);
