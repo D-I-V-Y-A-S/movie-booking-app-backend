@@ -40,7 +40,7 @@ const getImage = async (request, response) => {
             response.status(201).sendFile(filePath)
         }
         else {
-            response.status(409).send("wrong path!!")
+            response.status(409).send(`Wrong path ${__dirname}`);
         }
     })
 }
