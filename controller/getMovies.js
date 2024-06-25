@@ -35,12 +35,13 @@ const getImage = async (request, response) => {
     const fileName = request.params.fileName
     const filePath = path.join(directory, 'images', fileName);
     console.log(filePath)
+    response.status(201).sendFile(filePath);
     fs.stat(filePath, (error, stat) => {
         if (stat) {
-            response.status(201).sendFile(filePath)
+            return response.status(201).sendFile(filePath)
         }
         else {
-            response.status(409).send(`Wrong path ${__dirname.split('/controller')[0]} ${path.join(__dirname.split('/controller')[0],'images',fileName)}`);
+            return response.status(409).send(`Wrong path ${__dirname.split('/controller')[0]} ${path.join(__dirname.split('/controller')[0],'images',fileName)}`);
         }
     })
 }
