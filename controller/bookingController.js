@@ -29,7 +29,7 @@ const movieBooking = async (request, response) => {
                 lastName: detail.lastName,
                 location: detail.location,
                 slot: detail.slot,
-                gender: detail.gender,
+                gender: data.gender,
                 date: detail.date,
                 seatName: data.seatName,
                 seatType: data.seatType,

@@ -5,7 +5,7 @@ const movieData=[
         "movieGenre1": "SciFi",
         "movieGenre2": "Action",
         "imdbRating": 8.8,
-        "movieImage":"https://mern-movie-booking-backend-task.vercel.app/api/v1/movie/image/inception.jpg",
+        "movieImage":"http://localhost:3500/api/v1/movie/image/inception.jpg",
         "votes": "2.2k",
         "releaseDate": "14 Jan, 2010"
     },
