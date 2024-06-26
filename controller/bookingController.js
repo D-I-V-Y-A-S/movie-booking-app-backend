@@ -22,6 +22,7 @@ const movieBooking = async (request, response) => {
         if (authenticatedUser.length !== 1) {
             return response.status(404).json({ message: 'User not found or not authenticated.' });
         }
+        if(requestData.length>0){
         const createdTickets = [];
         for (const data of requestData) {
             const bookingData = {
@@ -36,10 +37,16 @@ const movieBooking = async (request, response) => {
                 movieName: data.movieName,
                 email: loggedInUserEmail
             }
+            console.log(bookingData)
             const createdTicket = await ticketModel.create(bookingData);
             createdTickets.push(createdTicket);
         }
         response.status(201).json({ message: 'Tickets Booked Successfully!', tickets: createdTickets });
+    }
+    else
+    {
+        response.status(409).json({ message: 'Enter all fields to book ticket!'}); 
+    }
     }
     catch (error) {
         response.status(500).json({ message: error.message })
