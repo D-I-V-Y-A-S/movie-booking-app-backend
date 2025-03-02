@@ -9,7 +9,7 @@ const addMovie = async (request, response) => {
             return response.status(400).send({ message: 'movie already exists' })
         }
         const { filename } = request.file
-        const movieImage = 'http://localhost:3500/api/v1/movie/image/' + filename
+        const movieImage = filename
         const movieData =
         {
             movieId: movieId,
