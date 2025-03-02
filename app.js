@@ -11,7 +11,7 @@ app.use(cors(corsOptions))
 
 require('dotenv').config()
 
-const PORT=process.env.PORT || 3500
+const PORT=process.env.PORT || 3600
 
 const mongoose=require('mongoose')
 mongoose.connect(process.env.DB_URL)

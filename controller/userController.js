@@ -9,7 +9,7 @@ const userLogin = async (request, response) => {
         const validUser = await userModel.findOne({ email: userEmail })
 
         if (!validUser) {
-            return response.status(404).json({ message: "An account with this email id doesn't exists!" })
+            return response.status(401).json({ message: "An account with this email id doesn't exists!" })
         }
         const isValidPassword = bcrypt.compareSync(userPassword, validUser.password)
         // console.log(validUser);
@@ -28,7 +28,7 @@ const userLogin = async (request, response) => {
 const userSignUp = async (request, response) => {
     try {
         const userData = request.body.data;
-        // console.log(userData)
+        console.log(userData)
         const availableData = await userModel.find({ email: userData.email })
         // console.log(availableData)
         if (availableData.length == 0) {
@@ -50,57 +50,6 @@ const userSignUp = async (request, response) => {
         response.status(500).json({ message: error.message })
     }
 }
-
-// const jwt = require('jsonwebtoken')
-
-// const maxAge = 3 * 24 * 60 * 60
-
-// const createToken = (email,password) => {
-//     return jwt.sign({ email,password}, JWT_TOKEN, {
-//         expiresIn: maxAge
-//     })
-// }
-
-
-// const userSignUp = async (req, res) => {
-//     const newUser = req.body.data
-//     try {
-//         const existingUser = await userModel.findOne({ email: newUser.email})
-//         if (existingUser) {
-//             res.status(401).json({ message: "user Already exists" })
-//         }
-
-//         const user = await userModel.create(newUser)
-//         console.log(user)
-
-//         const token = createToken(user.email, user.password)
-//         res.cookie('jwt', token)
-//         res.status(201).json({firstName: user.firstName, lastName: user.lastName})
-//     }
-//     catch (err) {
-//         console.log(err)
-//         res.status(400).json({ message: "user not created" })
-//     }
-// }
-
-// const userLogin  = async (req, res) => {
-//     const { userEmail, userPassword } = req.body
-//     console.log(userEmail,userPassword)
-//     try {
-
-//         const user = await userModel.find({email:userEmail})
-//         console.log(user)
-//         if(user){
-//         const token = createToken(userEmail,userPassword)
-//        return res.cookie('jwt', token)
-
-//       return  res.status(200).json({firstName:user.firstName, lastName: user.lastName})
-//         }
-//     }
-//     catch (err) {
-//         res.status(400).json({ message: "username or password does not exist" })
-//     }
-// }
 
 module.exports = { userLogin, userSignUp }
 

@@ -23,36 +23,21 @@ const displayMovies = async (request, response) => {
             response.status(200).json(movies)
         }
     }
+    
     catch (error) {
         response.status(500).json({ message: error.message })
     }
 }
 
-// const getImage = async (request, response) => {
-//     console.log(__dirname);
-//     // console.log()
-//     const directory = __dirname.split('/controller')[0]
-//     const fileName = request.params.fileName
-//     const filePath = path.join(directory, 'images', fileName);
-//     console.log(filePath)
-//     fs.stat(filePath, (error, stat) => {
-//         if (stat) {
-//             return response.status(201).sendFile(filePath)
-//         }
-//         else {
-//             return response.status(409).send(`Wrong path  ${path.join(__dirname.split('/controller')[0],'images',fileName)}`);
-//         }
-//     })
-// }
-
 const getImage = async (request, response) => {
-    console.log(__dirname)
+    // console.log(__dirname)
     const directory = (__dirname).split('\\controller')[0]
     const fileName = request.params.fileName
     const filePath = path.join(directory, 'images', fileName);
-    console.log(filePath)
+    //  console.log(filePath)
     fs.stat(filePath, (error, stat) => {
         if (stat) {
+            // console.log(filePath)
             response.status(201).sendFile(filePath)
         }
         else {
